@@ -36,6 +36,6 @@ the read-config function produces a simple map of config attributes
 
 ## License
 
-Copyright (C) 2011 FIXME
+Copyright (C) 2011 mccraigmccraig
 
 Distributed under the Eclipse Public License, the same as Clojure.
