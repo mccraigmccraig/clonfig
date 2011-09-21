@@ -2,11 +2,6 @@
   clonfig.core
   (:use clonfig.impl))
 
-(def attr-defaults {:environment  [:development :keyword]
-                    :database-url "postgresql://localhost/techcitymap"
-                    :port [8080 :int]
-                    :redistogo-url nil})
-
 (def default-value-processors {:int #(Integer/parseInt %)
                                :long #(Long/parseLong %)
                                :bigint bigint
