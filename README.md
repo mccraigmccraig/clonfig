@@ -1,16 +1,18 @@
-# clonfig
+## clonfig ##
 
-simple environment variable based config for clojure apps.
+simple environment variable based configuration for clojure apps.
 
 config attributes are defined in a map, along with defaults and post-processor functions.
-- attribute values are read from corresponding environment variables
-- default values can be specified which are used if there is no environment variable
-- value post-processors can be specified with a keyword, and transform the value
-- post-processor functions can be passed directly and are passed the config map and
+
+* attribute values are read from corresponding environment variables
+* default values can be specified which are used if there is no environment variable
+* value post-processors can be specified with a keyword, and transform the value
+* post-processor functions can be passed directly and are passed the config map and
   the value and can therefore produce config attributes which depend on the value
   of other config attributes
 
-## Usage
+## Usage ##
+
 add the dependency to your project.clj
 
   [clonfig "0.1.0"]  
@@ -34,7 +36,7 @@ the read-config function produces a simple map of config attributes
   (:port config)         ;; 8080
   (:database-url config) ;; "postgresql://localhost/production"
 
-## License
+## License ##
 
 Copyright (C) 2011 mccraigmccraig
 
