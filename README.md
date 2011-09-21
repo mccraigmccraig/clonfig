@@ -15,26 +15,26 @@ config attributes are defined in a map, along with defaults and post-processor f
 
 add the dependency to your project.clj
 
-  [clonfig "0.1.0"]  
+    [clonfig "0.1.0"]  
 
 define any environment variables you want before running a clojure process
 
-  ENVIRONMENT=production lein repl
+    ENVIRONMENT=production lein repl
 
 the read-config function produces a simple map of config attributes
 
-  (use 'clonfig.core)
+    (use 'clonfig.core)
 
-  (def config-defaults {:environment "development"
-                        :port ["8080" :int]
-                        :database-url ["postgresql://localhost/"
-                                       (fn [config val] (str val @(:environment config)))]})
+    (def config-defaults {:environment "development"
+                          :port ["8080" :int]
+                          :database-url ["postgresql://localhost/"
+                                         (fn [config val] (str val @(:environment config)))]})
 
-  (def config (read-config config-defaults))
+    (def config (read-config config-defaults))
 
-  (:environment config)  ;; "production"
-  (:port config)         ;; 8080
-  (:database-url config) ;; "postgresql://localhost/production"
+    (:environment config)  ;; "production"
+    (:port config)         ;; 8080
+    (:database-url config) ;; "postgresql://localhost/production"
 
 ## License ##
 
