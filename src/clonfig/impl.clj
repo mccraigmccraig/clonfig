@@ -1,6 +1,6 @@
 (ns ^{:doc "clonfig implementation"}
   clonfig.impl
-  (:require [clojure.contrib.str-utils :as stru]))
+  (:require [clojure.string :as str]))
 
 (defn config-ev-name
   "given a keyword name for a config attribute, 
@@ -8,7 +8,7 @@
    :foo => \"FOO\"
    :foo-bar => \"FOO_BAR\""
   [attr-name]
-  (.toUpperCase (stru/re-gsub #"-" "_" (name attr-name))))
+  (.toUpperCase (str/replace (name attr-name) #"-" "_" )))
 
 (defn config-ev
   "given a keyword name for a config attribute, lookup the associated environment variable"
