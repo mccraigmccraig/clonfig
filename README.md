@@ -1,5 +1,8 @@
 ## clonfig ##
 
+[![Build Status](https://secure.travis-ci.org/mccraigmccraig/clonfig.png)](http://travis-ci.org/mccraigmccraig/clonfig)
+
+
 simple environment variable based configuration for clojure apps.
 
 config attributes are defined in a map, along with defaults and post-processor functions.
@@ -15,7 +18,7 @@ config attributes are defined in a map, along with defaults and post-processor f
 
 add the dependency to your project.clj
 
-    [clonfig "0.1.0"]  
+    [clonfig "0.1.0"]
 
 define any environment variables you want before running a clojure process
 
