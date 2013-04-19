@@ -1,4 +1,4 @@
-(ns clonfig.test.impl
+(ns clonfig.impl-test
   (:use clonfig.core
         clonfig.impl
         midje.sweet))
@@ -30,8 +30,8 @@
     @(value-delay default-value-processors config-promise :foo [100 (fn [config val] (+ @(config :bar) val))]) => 600))
 
 (facts "about delayed-config"
-  (let [config-defaults {:foo 100 
-                         :bar ["500" :keyword] 
+  (let [config-defaults {:foo 100
+                         :bar ["500" :keyword]
                          :baz [1000 (fn [config val] (inc val))]
                          :boo [2000 (fn [config val] (+ @(:baz config) val))]}
         dc (delayed-config default-value-processors config-defaults)]
@@ -39,4 +39,3 @@
     @(:bar dc) => :500
     @(:baz dc) => 1001
     @(:boo dc) => 3001))
-

@@ -2,7 +2,8 @@
   clonfig.core
   (:use clonfig.impl))
 
-(def default-value-processors {:int #(Integer/parseInt %)
+(def default-value-processors {:bool #(Boolean/parseBoolean %)
+                               :int #(Integer/parseInt %)
                                :long #(Long/parseLong %)
                                :bigint bigint
                                :bigdec bigdec
@@ -13,7 +14,7 @@
 
 (defn read-config
   "given a map of config attrs and their default specs and an optional map of value processors,
-   read environment variables and apply post-processors to produce a vanilla hash-map of 
+   read environment variables and apply post-processors to produce a vanilla hash-map of
    config values.
 
    value-processors is an optional keyword-keyed map of single-argument functions which process
@@ -31,7 +32,7 @@
    where -
    value-processor-key: identifies a value-process from the value-processors map
    post-processor-fn: a function with arguments [config value] which is called to
-     retrieve the value of the config attribute. it may use the config map to 
+     retrieve the value of the config attribute. it may use the config map to
      retrieve the value of other attributes in order to calculate the attribute value
    default-value: a simple default value with no post processing"
   [config-defaults & [value-processors]]

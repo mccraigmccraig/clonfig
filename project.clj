@@ -1,8 +1,20 @@
-(defproject clonfig "0.1.1"
-  :description "simple environment variable based config for clojure apps"
-  :url "https://github.com/mccraigmccraig/clonfig"
-  :dependencies [[org.clojure/clojure "1.3.0"]]
-  :dev-dependencies [
-                     [midje "1.3.1" :exclusions [org.clojure/clojure]]
-                     [lein-midje "1.0.9"]])
+(def shared
+  '[])
 
+(defproject clonfig "0.2.0"
+  :description "simple environment variable based config for clojure apps"
+
+  :min-lein-version "2.0.0"
+
+  :url "https://github.com/mccraigmccraig/clonfig"
+
+  :plugins [[lein-midje "3.0.1"]]
+
+  :dependencies [[org.clojure/clojure "1.5.1"]]
+
+  :profiles {:all {:dependencies ~shared}
+             :dev {:dependencies [[midje "1.5.1"]]}
+             :production {}
+             :1.4 {:dependencies [[org.clojure/clojure "1.4.0"]]}
+             :1.5 {:dependencies [[org.clojure/clojure "1.5.1"]]}}
+  )
