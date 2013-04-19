@@ -73,7 +73,7 @@
    environment-variable or default-value.
    if there is a post-processor then it is called with [config value] parameters to
    give the value returned by the delay"
-  [value-processors config-promise attr-name attr-defaults & {:keys [ev-prefix]}]
+  [config-promise attr-name attr-defaults & {:keys [value-processors ev-prefix]}]
   (if (map? attr-defaults)
     (delay (-> (delayed-config attr-defaults
                                :value-processors value-processors
@@ -97,7 +97,9 @@
      config-defaults
      (map (fn [[attr-name defaults]]
             [attr-name
-             (value-delay value-processors config-promise attr-name (destructure-attr-defaults defaults) :ev-prefix ev-prefix)]))
+             (value-delay config-promise attr-name (destructure-attr-defaults defaults)
+                          :value-processors value-processors
+                          :ev-prefix ev-prefix)]))
      (into {})
      (deliver config-promise)
      deref)))

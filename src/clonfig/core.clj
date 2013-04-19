@@ -39,7 +39,7 @@
      retrieve the value of the config attribute. it may use the config map to
      retrieve the value of other attributes in order to calculate the attribute value
    default-value: a simple default value with no post processing"
-  [config-defaults & [value-processors]]
+  [config-defaults & {:keys [value-processors]}]
   (-> (delayed-config config-defaults :value-processors (or value-processors default-value-processors) )
       deref-delayed-config)
 )

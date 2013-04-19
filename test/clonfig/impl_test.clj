@@ -34,12 +34,13 @@
 
 (facts "about value-delay"
   (let [config-promise (delay {:bar (delay 500)})]
-    @(value-delay default-value-processors config-promise :foo [100 nil]) => 100
-    @(value-delay default-value-processors config-promise :foo ["boo" :keyword]) => :boo
-    @(value-delay default-value-processors config-promise :foo ["100" :int]) => 100
-    @(value-delay default-value-processors config-promise :foo [100 (fn [config val] (inc val))]) => 101
-    @(value-delay default-value-processors config-promise :foo [100 (fn [config val] (+ @(config :bar) val))]) => 600)
+    @(value-delay config-promise :foo [100 nil] :value-processors default-value-processors) => 100
+    @(value-delay config-promise :foo ["boo" :keyword] :value-processors default-value-processors) => :boo
+    @(value-delay config-promise :foo ["100" :int] :value-processors default-value-processors) => 100
+    @(value-delay config-promise :foo [100 (fn [config val] (inc val))] :value-processors default-value-processors) => 101
+    @(value-delay config-promise :foo [100 (fn [config val] (+ @(config :bar) val))] :value-processors default-value-processors) => 600))
 
+(facts "about value-delay with nested config-defaults"
 
 
   )
