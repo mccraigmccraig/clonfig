@@ -11,9 +11,9 @@ config attributes are defined in a map, along with defaults and post-processor f
 * attribute values are read from corresponding environment variables
 * default values can be specified which are used if there is no environment variable
 * value post-processors can be specified with a keyword, and transform the value
-* post-processor functions can be passed directly and are passed the config map and
-  a delay for the value and can therefore produce config attributes which depend on the value
-  of other config attributes
+* post-processor functions can be passed directly and are given a map of delays for
+  config-values and the value (default or environment variable) and can therefore
+  produce config attributes which depend on the value of other config attributes
 * maps of config-defaults can be nested : a nested map will have a prefix on corresponding
   environment variables as specified by the key in the containing map, so in the example below
   the smtp port can be set with environment variable SMTP_PORT
