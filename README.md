@@ -15,7 +15,8 @@ config attributes are defined in a map, along with defaults and post-processor f
   a delay for the value and can therefore produce config attributes which depend on the value
   of other config attributes
 * maps of config-defaults can be nested : a nested map will have a prefix on corresponding
-  environment variables as specified by the key in the containing map
+  environment variables as specified by the key in the containing map, so in the example below
+  the smtp port can be set with environment variable SMTP_PORT
 
 ## Usage ##
 
@@ -25,7 +26,7 @@ add the dependency to your project.clj
 
 define any environment variables you want before running a clojure process
 
-    ENVIRONMENT=production lein repl
+    ENVIRONMENT=production SMTP_PORT=465 lein repl
 
 the read-config function produces a simple map of config attributes
 
@@ -40,11 +41,11 @@ the read-config function produces a simple map of config attributes
 
     (def config (read-config config-defaults))
 
-    (:environment config)  ;; "development"
+    (:environment config)  ;; "production"
     (:port config)         ;; 8080
-    (:database-url config) ;; "postgresql://localhost/development"
+    (:database-url config) ;; "postgresql://localhost/production"
     (get-in config [:smtp :host]) ;; "localhost"
-    (get-in config [:smtp :port]) ;; 25
+    (get-in config [:smtp :port]) ;; 465
 
 ## License ##
 
