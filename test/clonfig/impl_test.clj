@@ -26,6 +26,7 @@
   (post-processor-fn default-value-processors 100) => (throws RuntimeException))
 
 (facts "about destructure-attr-defaults"
+  (destructure-attr-defaults {:foo 100}) => {:foo 100}
   (destructure-attr-defaults 100) => [100, nil]
   (destructure-attr-defaults [100 :keyword]) => [100 :keyword]
   (let [pp (fn [config val] [config val])]
@@ -40,10 +41,25 @@
     @(value-delay config-promise :foo [100 (fn [config val] (inc val))] :value-processors default-value-processors) => 101
     @(value-delay config-promise :foo [100 (fn [config val] (+ @(config :bar) val))] :value-processors default-value-processors) => 600))
 
+(facts "about value delay with environment variables"
+  (let [config-promise (delay {})]
+    @(value-delay config-promise :foo [100 :int] :value-processors default-value-processors) => 200
+
+    (provided
+      (read-ev "FOO") => "200")))
+
 (facts "about value-delay with nested config-defaults"
+  (let [config-promise (delay {})]
+    @(value-delay config-promise :foo {:bar 100}) => {:bar 100}
+    (provided
+      (delayed-config {:bar 100} :value-processors nil :ev-prefix '(:foo)) => {:bar (delay 100)})))
 
+(facts "about value-delay with nested config-defaults and environment variables"
+  (let [config-promise (delay {})]
+    @(value-delay config-promise :foo {:bar [100 :int]} :value-processors default-value-processors) => {:bar 200}
+    (provided
+      (read-ev "FOO_BAR") => "200")))
 
-  )
 
 (facts "about delayed-config"
   (let [config-defaults {:foo 100

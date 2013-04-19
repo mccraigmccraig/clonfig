@@ -25,10 +25,15 @@
        .toUpperCase
        (#(str/replace % #"-" "_"))))
 
+(defn read-ev
+  "read an environment variable"
+  [name]
+  (System/getenv name))
+
 (defn config-ev
   "given a keyword name for a config attribute, lookup the associated environment variable"
   [attr-name & {:keys [ev-prefix]}]
-  (System/getenv (config-ev-name attr-name :ev-prefix ev-prefix)))
+  (read-ev (config-ev-name attr-name :ev-prefix ev-prefix)))
 
 (defn post-processor-fn
   "given a map of keyword keyed value-processors and a post-processor which is either a keyword
@@ -81,7 +86,7 @@
                deref-delayed-config))
     (let [[def-val post-processor] attr-defaults]
       (-> attr-name
-          config-ev
+          (config-ev :ev-prefix ev-prefix)
           (or def-val)
           ((fn [val]
              (if post-processor
