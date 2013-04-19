@@ -34,12 +34,12 @@
    default-value
 
    where -
-   value-processor-key: identifies a value-process from the value-processors map
+   value-processor-key: identifies a value-processor from the value-processors map
    post-processor-fn: a function with arguments [config value] which is called to
      retrieve the value of the config attribute. it may use the config map to
      retrieve the value of other attributes in order to calculate the attribute value
    default-value: a simple default value with no post processing"
   [config-defaults & [value-processors]]
-  (->> (delayed-config (or value-processors default-value-processors) config-defaults)
-       (map (fn [[attr-name attr-value-delay]] [attr-name @attr-value-delay]))
-       (into {})))
+  (-> (delayed-config config-defaults :value-processors (or value-processors default-value-processors) )
+      deref-delayed-config)
+)
