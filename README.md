@@ -18,7 +18,7 @@ config attributes are defined in a map, along with defaults and post-processor f
 
 add the dependency to your project.clj
 
-    [clonfig "0.1.0"]
+    [clonfig "0.2.0"]
 
 define any environment variables you want before running a clojure process
 
@@ -29,7 +29,7 @@ the read-config function produces a simple map of config attributes
     (use 'clonfig.core)
 
     (def config-defaults {:environment "development"
-                          :port ["8080" :int]
+                          :port [8080 :int]
                           :database-url ["postgresql://localhost/"
                                          (fn [config val] (str val @(:environment config)))]})
 
@@ -41,6 +41,6 @@ the read-config function produces a simple map of config attributes
 
 ## License ##
 
-Copyright (C) 2011 mccraigmccraig
+Copyright (C) 2013 mccraigmccraig
 
 Distributed under the Eclipse Public License, the same as Clojure.

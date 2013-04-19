@@ -2,15 +2,19 @@
   clonfig.core
   (:use clonfig.impl))
 
-(def default-value-processors {:bool #(Boolean/parseBoolean %)
-                               :int #(Integer/parseInt %)
-                               :long #(Long/parseLong %)
-                               :bigint bigint
-                               :bigdec bigdec
-                               :float #(Float/parseFloat %)
-                               :double #(Double/parseDouble %)
-                               :keyword keyword
-                               :read read-string})
+(defn apply-if-string
+  [parse-fn]
+  (fn [v] (if (string? v) (parse-fn v) v)))
+
+(def default-value-processors {:bool (apply-if-string #(Boolean/parseBoolean %))
+                               :int (apply-if-string #(Integer/parseInt %))
+                               :long (apply-if-string #(Long/parseLong %))
+                               :bigint (apply-if-string bigint)
+                               :bigdec (apply-if-string bigdec)
+                               :float (apply-if-string #(Float/parseFloat %))
+                               :double (apply-if-string #(Double/parseDouble %))
+                               :keyword (apply-if-string keyword)
+                               :read (apply-if-string read-string)})
 
 (defn read-config
   "given a map of config attrs and their default specs and an optional map of value processors,
