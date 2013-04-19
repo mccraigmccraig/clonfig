@@ -25,9 +25,10 @@
    the string-value of an environment-variable or default into the intended config value. it
    defaults to clonfig.core/default-value-processors
 
-   config-defaults is a map of keyword config attribute names to attribute default specs.
+   config-defaults is a map of keyword config attribute names to attribute-default-specs or nested maps
+   of config-defaults.
 
-   attribute default specs may take one of the forms :
+   attribute-default-specs may take one of these 3 forms :
 
    [default-value value-processor-key-or-post-processor-fn]
    post-processor-fn
