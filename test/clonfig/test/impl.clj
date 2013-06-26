@@ -3,9 +3,6 @@
         clonfig.impl
         midje.sweet))
 
-(facts "about config-ev-name"
-  (config-ev-name :foo) => "FOO"
-  (config-ev-name :foo-bar) => "FOO_BAR")
 
 (facts "about post-processor-fn"
   ((post-processor-fn default-value-processors :keyword) ...config... "bloo") => :bloo

@@ -1,19 +1,11 @@
 (ns ^{:doc "clonfig implementation"}
   clonfig.impl
-  (:require [clojure.string :as str]))
-
-(defn config-ev-name
-  "given a keyword name for a config attribute, 
-   convert it to the corresponding environment variable name.
-   :foo => \"FOO\"
-   :foo-bar => \"FOO_BAR\""
-  [attr-name]
-  (.toUpperCase (str/replace (name attr-name) #"-" "_" )))
+  (:require [clojure.string :as str] [environ.core :as environ]))
 
 (defn config-ev
   "given a keyword name for a config attribute, lookup the associated environment variable"
   [attr-name]
-  (System/getenv (config-ev-name attr-name)))
+  (environ/env attr-name))
 
 (defn post-processor-fn
   "given a map of keyword keyed value-processors and a post-processor which is either a keyword
